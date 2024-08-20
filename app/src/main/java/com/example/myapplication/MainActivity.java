@@ -11,9 +11,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+
 import android.graphics.BitmapFactory;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -25,11 +28,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+
+
 public class MainActivity extends AppCompatActivity {
     private String currentPhotoPath;
+    private ActivityResultLauncher<Intent> takePictureLauncher;
 
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
-        private static final int CAMERA_PERMISSION_CODE = 100;
+
+    private static final int CAMERA_PERMISSION_CODE = 100;
         private ImageView photoView;
 
     @Override
@@ -39,6 +45,15 @@ public class MainActivity extends AppCompatActivity {
 
         Button takePictureButton = findViewById(R.id.TakePicture);
         photoView = findViewById(R.id.photoView);
+
+        // Initialisation du ActivityResultLauncher
+        takePictureLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK) {
+                // Afficher la photo en pleine résolution
+                Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath);
+                photoView.setImageBitmap(bitmap);
+            }
+        });
 
         takePictureButton.setOnClickListener(v -> {
             if (checkCameraPermission()) {
@@ -81,10 +96,11 @@ public class MainActivity extends AppCompatActivity {
                         "com.example.myapplication.fileprovider",
                         imageFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                takePictureLauncher.launch(takePictureIntent);
             }
         }
     }
+
 
     private File createImageFileWithHandling() {
         try {
@@ -97,17 +113,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            // Afficher la photo en pleine résolution
-            Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath);
-            photoView.setImageBitmap(bitmap);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CAMERA_PERMISSION_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
