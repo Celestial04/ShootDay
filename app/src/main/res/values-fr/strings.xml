@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mon Application</string>
+    <string name="Send_Photo">Prends une photo !</string>
+    <string name="TakenPicture">Photo prise</string>
+</resources>
