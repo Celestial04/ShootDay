@@ -7,6 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ScrollView>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,27 +24,42 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.057" />
 
-    <Button
-        android:id="@+id/TakePicture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Send_Photo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="332dp" />
-
     <ImageView
         android:id="@+id/photoView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/TakenPicture"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="16dp"
-        android:contentDescription="@string/TakenPicture" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom|end"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2">
+
+        <Button
+            android:id="@+id/GoToGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/view_gallery" />
+
+        <Button
+            android:id="@+id/TakePicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Send_Photo" />
+
+        <Button
+            android:id="@+id/SendPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Envoyer la photo" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

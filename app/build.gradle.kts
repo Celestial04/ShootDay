@@ -32,7 +32,13 @@ android {
 }
 
 dependencies {
-
+    implementation(platform(libs.okhttp.bom))
+    // define any required OkHttp artifacts without version
+    implementation(libs.okhttp)
+    implementation(libs.glide)
+    implementation(libs.exifinterface)
+    annotationProcessor(libs.compiler)
+    implementation(libs.logging.interceptor)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

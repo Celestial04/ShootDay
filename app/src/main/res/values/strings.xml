@@ -2,4 +2,9 @@
     <string name="app_name">My Application</string>
     <string name="Send_Photo">Take Picture!</string>
     <string name="TakenPicture">Taken Picture</string>
+    <string name="send_picture">Send pitcure now!</string>
+    <string name="uploaded_pitcure">Uploaded Pitcure</string>
+    <string name="access_image_content">Image Content</string>
+    <string name="text_view_gallery">View Gallery</string>
+    <string name="view_gallery">View Gallery</string>
 </resources>
